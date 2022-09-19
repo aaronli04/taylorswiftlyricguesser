@@ -19,13 +19,12 @@ function getTaylorSwiftID() {
 }
 
 // Get album ID by album name
-function getAlbumID() {
+function getAlbumID(id) {
     return new Promise((resolve, reject) => {
-        axios.get(BASE_URL + `artist.albums.get?apikey=${API_KEY}&artist_id=259675`).then((response) => {
+        axios.get(BASE_URL + `artist.albums.get?apikey=${API_KEY}&artist_id=${id}`).then((response) => {
             for (let i = 0; i < response.data.message.body.album_list.length; i++) {
                 if (response.data.message.body.album_list[i].album.album_name === `${albumName}`) {
                     var album_id = response.data.message.body.album_list[i].album.album_id;
-                    console.log(album_id)
                     resolve(album_id);
                 }
             }
@@ -33,17 +32,34 @@ function getAlbumID() {
     });
 }
 
-// Search for artist ID and album name, return album ID
+// Take album ID, return random track ID
+function getTrackID(album_id) {
+    return new Promise((resolve, reject) => {
+        axios.get(BASE_URL + `album.tracks.get?apikey=${API_KEY}&album_id=${album_id}`).then((response) => {
+            let album_length = response.data.message.body.track_list.length;
+            let random_track = Math.floor(Math.random() * album_length);
+            var track_id = response.data.message.body.track_list[random_track].track.track_id;
+            resolve(track_id);
+        });
+    });
+}
 
-// Take album ID, to get tracks
-
-// Pick individual track, track.snippet.get
-
+// Gets snippet from previously randomly chosen track
+function getSnippet(track_id) {
+    return new Promise((resolve, reject) => {
+        axios.get(BASE_URL + `track.snippet.get?apikey=${API_KEY}&track_id=${track_id}`).then((response) => {
+            var snippet = response.data.message.body.snippet.snippet_body;
+            resolve(snippet);
+        });
+    });
+}
 
 app.get('/lyrics', async (req, res) => {
     var id = await getTaylorSwiftID();
-    var album_id = await getAlbumID();
-    res.json(album_id);
+    var album_id = await getAlbumID(id);
+    var track_id = await getTrackID(album_id);
+    var snippet = await getSnippet(track_id);
+    res.send(snippet);
 });
 
 app.listen(PORT, () => console.log('Server running on port 5002'));
