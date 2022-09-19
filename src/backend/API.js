@@ -74,8 +74,10 @@ app.get('/lyrics', async (req, res) => {
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
     var snippet = await getSnippet(track_id);
+    var trackAndLyric = [trackName, snippet];
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
 
-    res.send(trackName);
+    res.send(JSONTrackAndLyric);
 });
 
 app.listen(PORT, () => console.log('Server running on port 5002'));
