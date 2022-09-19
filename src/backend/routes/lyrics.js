@@ -1,32 +1,23 @@
 import userEvent from '@testing-library/user-event';
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+
 
 const router = express.Router();
-
-const lyrics = [
-    {
-        songTitle: "You Belong With Me",
-        lyrics: "You're on the phone with your girlfriend, she's upset"
-    }
-]
 
 // All routes in here start with /songs
 // Load lyrics in database
 router.get('/', (req, res) => {
-    res.send(lyrics);
+    res.send('hello');
 });
 
-// Add lyrics to database from POST requests - find way to pull from Musixmatch API
-router.post('/', (req, res) => {
+// Get artist ID through Axios
 
-    const lyric = req.body;
+// Search for artist ID and album name, return album ID
 
-    // Create unique ID for each lyric
-    const lyricWithId = {...lyric, id: uuidv4()}
-    lyrics.push(lyricWithId);
+// Take album ID, to get tracks
 
-    res.send(`Lyrics: ${lyricWithId.lyrics} from song ${lyricWithId.songTitle} added to the database.`);
-});
+// Pick individual track, track.snippet.get
 
 export default router;
