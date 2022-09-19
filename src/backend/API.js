@@ -1,11 +1,12 @@
 import express from "express";
-import lyricsRoutes from "./routes/lyrics.js"
 import axios from "axios";
 
 const app = express();
 const PORT = 5002;
 const BASE_URL = 'http://api.musixmatch.com/ws/1.1/';
 const API_KEY = 'a2943de1ee91289dd09dcaefad5cab47';
+
+// Change this based on option the user selects
 var albumName = "Fearless (Taylor's Version)";
 
 // Search for Taylor Swift
