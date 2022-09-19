@@ -1,5 +1,6 @@
 import express from "express";
 import axios from "axios";
+import cors from "cors";
 
 const app = express();
 const PORT = 5002;
@@ -45,6 +46,16 @@ function getTrackID(album_id) {
     });
 }
 
+// Takes track ID, gets song name
+function getTrackFromID(track_id) {
+    return new Promise((resolve, reject) => {
+        axios.get(BASE_URL + `track.get?apikey=${API_KEY}&track_id=${track_id}`).then((response) => {
+            var trackName = response.data.message.body.track.track_name;
+            resolve(trackName);
+        });
+    });
+}
+
 // Gets snippet from previously randomly chosen track
 function getSnippet(track_id) {
     return new Promise((resolve, reject) => {
@@ -55,12 +66,16 @@ function getSnippet(track_id) {
     });
 }
 
+app.use(cors());
+
 app.get('/lyrics', async (req, res) => {
     var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id);
     var track_id = await getTrackID(album_id);
+    var trackName = await getTrackFromID(track_id);
     var snippet = await getSnippet(track_id);
-    res.send(snippet);
+
+    res.send(trackName);
 });
 
 app.listen(PORT, () => console.log('Server running on port 5002'));
