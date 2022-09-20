@@ -76,8 +76,9 @@ app.get('/lyrics', async (req, res) => {
     var snippet = await getSnippet(track_id);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    res.send(JSONTrackAndLyric)
 
-    res.send(JSONTrackAndLyric);
+
 });
 
 app.listen(PORT, () => console.log('Server running on port 5002'));
