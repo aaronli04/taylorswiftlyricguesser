@@ -7,9 +7,6 @@ const PORT = 5002;
 const BASE_URL = 'http://api.musixmatch.com/ws/1.1/';
 const API_KEY = 'a2943de1ee91289dd09dcaefad5cab47';
 
-// Change this based on option the user selects
-var albumName = "Fearless (Taylor's Version)";
-
 // Search for Taylor Swift
 function getTaylorSwiftID() {
     return new Promise((resolve, reject) => {
@@ -21,7 +18,7 @@ function getTaylorSwiftID() {
 }
 
 // Get album ID by album name
-function getAlbumID(id) {
+function getAlbumID(id, albumName) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `artist.albums.get?apikey=${API_KEY}&artist_id=${id}`).then((response) => {
             for (let i = 0; i < response.data.message.body.album_list.length; i++) {
@@ -56,6 +53,7 @@ function getTrackFromID(track_id) {
     });
 }
 
+// Need to integrate try/catch
 // Gets snippet from previously randomly chosen track
 function getSnippet(track_id) {
     return new Promise((resolve, reject) => {
@@ -68,17 +66,135 @@ function getSnippet(track_id) {
 
 app.use(cors());
 
-app.get('/lyrics', async (req, res) => {
+// You All Over Me (feat. Maren Morris) (Taylor's Version) (From The Vault)
+app.get('/lyrics/1', async (req, res) => {
+    var albumName = 'You All Over Me (feat. Maren Morris) (Taylor\u2019s Version) (From The Vault)';
     var id = await getTaylorSwiftID();
-    var album_id = await getAlbumID(id);
+    var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
     var snippet = await getSnippet(track_id);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
+});
+
+// 1989
+app.get('/lyrics/2', async (req, res) => {
+    var albumName = '1989';
+    var id = await getTaylorSwiftID();
+    var album_id = await getAlbumID(id, albumName);
+    var track_id = await getTrackID(album_id);
+    var trackName = await getTrackFromID(track_id);
+    var snippet = await getSnippet(track_id);
+    var trackAndLyric = [trackName, snippet];
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    res.send(JSONTrackAndLyric)
+});
 
 
+// Lover
+app.get('/lyrics/3', async (req, res) => {
+    var albumName = 'Lover';
+    var id = await getTaylorSwiftID();
+    var album_id = await getAlbumID(id, albumName);
+    var track_id = await getTrackID(album_id);
+    var trackName = await getTrackFromID(track_id);
+    var snippet = await getSnippet(track_id);
+    var trackAndLyric = [trackName, snippet];
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    res.send(JSONTrackAndLyric)
+});
+
+// ...Ready For It?
+app.get('/lyrics/4', async (req, res) => {
+    var albumName = '...Ready For It?';
+    var id = await getTaylorSwiftID();
+    var album_id = await getAlbumID(id, albumName);
+    var track_id = await getTrackID(album_id);
+    var trackName = await getTrackFromID(track_id);
+    var snippet = await getSnippet(track_id);
+    var trackAndLyric = [trackName, snippet];
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    res.send(JSONTrackAndLyric)
+});
+
+// reputation
+app.get('/lyrics/5', async (req, res) => {
+    var albumName = 'reputation';
+    var id = await getTaylorSwiftID();
+    var album_id = await getAlbumID(id, albumName);
+    var track_id = await getTrackID(album_id);
+    var trackName = await getTrackFromID(track_id);
+    var snippet = await getSnippet(track_id);
+    var trackAndLyric = [trackName, snippet];
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    res.send(JSONTrackAndLyric)
+});
+
+// Red (Taylor's Version)
+app.get('/lyrics/6', async (req, res) => {
+    var albumName = 'Red (Taylor\'s Version)';
+    var id = await getTaylorSwiftID();
+    var album_id = await getAlbumID(id, albumName);
+    var track_id = await getTrackID(album_id);
+    var trackName = await getTrackFromID(track_id);
+    var snippet = await getSnippet(track_id);
+    var trackAndLyric = [trackName, snippet];
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    res.send(JSONTrackAndLyric)
+});
+
+// Mr. Perfectly Fine (Taylor\u2019s Version) (From The Vault)
+app.get('/lyrics/7', async (req, res) => {
+    var albumName = 'Mr. Perfectly Fine (Taylor\u2019s Version) (From The Vault)';
+    var id = await getTaylorSwiftID();
+    var album_id = await getAlbumID(id, albumName);
+    var track_id = await getTrackID(album_id);
+    var trackName = await getTrackFromID(track_id);
+    var snippet = await getSnippet(track_id);
+    var trackAndLyric = [trackName, snippet];
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    res.send(JSONTrackAndLyric)
+});
+
+// folklore
+app.get('/lyrics/8', async (req, res) => {
+    var albumName = 'folklore';
+    var id = await getTaylorSwiftID();
+    var album_id = await getAlbumID(id, albumName);
+    var track_id = await getTrackID(album_id);
+    var trackName = await getTrackFromID(track_id);
+    var snippet = await getSnippet(track_id);
+    var trackAndLyric = [trackName, snippet];
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    res.send(JSONTrackAndLyric)
+});
+
+// Fearless (Taylor's Version)
+app.get('/lyrics/9', async (req, res) => {
+    var albumName = 'Fearless (Taylor\'s Version)';
+    var id = await getTaylorSwiftID();
+    var album_id = await getAlbumID(id, albumName);
+    var track_id = await getTrackID(album_id);
+    var trackName = await getTrackFromID(track_id);
+    var snippet = await getSnippet(track_id);
+    var trackAndLyric = [trackName, snippet];
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    res.send(JSONTrackAndLyric)
+});
+
+// The Archer
+app.get('/lyrics/10', async (req, res) => {
+    var albumName = 'The Archer';
+    var id = await getTaylorSwiftID();
+    var album_id = await getAlbumID(id, albumName);
+    var track_id = await getTrackID(album_id);
+    var trackName = await getTrackFromID(track_id);
+    var snippet = await getSnippet(track_id);
+    var trackAndLyric = [trackName, snippet];
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    res.send(JSONTrackAndLyric)
 });
 
 app.listen(PORT, () => console.log('Server running on port 5002'));
