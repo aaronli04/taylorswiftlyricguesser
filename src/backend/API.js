@@ -55,6 +55,7 @@ function getTrackFromID(track_id) {
 
 // Gets snippet from previously randomly chosen track
 var count = 0;
+var lastSnippet;
 function getSnippet(track_id, album_id, albumName) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `track.snippet.get?apikey=${API_KEY}&track_id=${track_id}`).then((response) => {
@@ -71,8 +72,9 @@ function getSnippet(track_id, album_id, albumName) {
                     count = 0;
                 }
             }
-            else if (response.data.message.body.snippet.snippet_body !== "") {
+            else if (response.data.message.body.snippet.snippet_body !== lastSnippet) {
                 var snippet = response.data.message.body.snippet.snippet_body;
+                lastSnippet = snippet
                 resolve(snippet);
             }
         });
@@ -108,7 +110,6 @@ app.get('/lyrics/2', async (req, res) => {
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
 });
-
 
 // Lover
 app.get('/lyrics/3', async (req, res) => {

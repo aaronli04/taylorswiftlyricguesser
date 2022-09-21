@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 const albumName = 'Fearless (Taylor\'s Version)';
@@ -11,10 +10,13 @@ function App() {
   var [songName, setSongName] = useState();
   var [lyrics, setLyrics] = useState();
 
+  // Change based on tick the user selects
+  var [albumNumber, setAlbumNumber] = useState(6);
+
   // Get lyrics from backend
   useEffect(() => {
       async function fetchLyrics() {
-        const response = await fetch('http://localhost:5002/lyrics/2');
+        const response = await fetch(`http://localhost:5002/lyrics/${albumNumber}`);
         const songAndLyric = await response.json();
         setSongName(songAndLyric[0])
         setLyrics(songAndLyric[1]);
