@@ -53,19 +53,36 @@ function getTrackFromID(track_id) {
     });
 }
 
-// Need to integrate try/catch
 // Gets snippet from previously randomly chosen track
-function getSnippet(track_id) {
+var count = 0;
+function getSnippet(track_id, album_id, albumName) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `track.snippet.get?apikey=${API_KEY}&track_id=${track_id}`).then((response) => {
-            var snippet = response.data.message.body.snippet.snippet_body;
-            resolve(snippet);
+            if (response.data.message.body.snippet === null || response.data.message.body.snippet === undefined) {
+                count++;
+                if (count < 5) {
+                    getSnippet(track_id);
+                }
+                else {
+                    var id = getTaylorSwiftID();
+                    var album_id = getAlbumID(id, albumName)
+                    var newTrack = getTrackID(album_id);
+                    getSnippet(newTrack);
+                    count = 0;
+                }
+            }
+            else if (response.data.message.body.snippet.snippet_body !== "") {
+                var snippet = response.data.message.body.snippet.snippet_body;
+                resolve(snippet);
+            }
         });
     });
 }
 
 app.use(cors());
 
+
+// Individual album calls/posts
 // You All Over Me (feat. Maren Morris) (Taylor's Version) (From The Vault)
 app.get('/lyrics/1', async (req, res) => {
     var albumName = 'You All Over Me (feat. Maren Morris) (Taylor\u2019s Version) (From The Vault)';
@@ -73,7 +90,7 @@ app.get('/lyrics/1', async (req, res) => {
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
-    var snippet = await getSnippet(track_id);
+    var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
@@ -86,7 +103,7 @@ app.get('/lyrics/2', async (req, res) => {
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
-    var snippet = await getSnippet(track_id);
+    var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
@@ -100,7 +117,7 @@ app.get('/lyrics/3', async (req, res) => {
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
-    var snippet = await getSnippet(track_id);
+    var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
@@ -113,7 +130,7 @@ app.get('/lyrics/4', async (req, res) => {
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
-    var snippet = await getSnippet(track_id);
+    var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
@@ -126,7 +143,7 @@ app.get('/lyrics/5', async (req, res) => {
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
-    var snippet = await getSnippet(track_id);
+    var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
@@ -139,7 +156,7 @@ app.get('/lyrics/6', async (req, res) => {
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
-    var snippet = await getSnippet(track_id);
+    var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
@@ -152,7 +169,7 @@ app.get('/lyrics/7', async (req, res) => {
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
-    var snippet = await getSnippet(track_id);
+    var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
@@ -165,7 +182,7 @@ app.get('/lyrics/8', async (req, res) => {
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
-    var snippet = await getSnippet(track_id);
+    var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
@@ -178,7 +195,7 @@ app.get('/lyrics/9', async (req, res) => {
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
-    var snippet = await getSnippet(track_id);
+    var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
@@ -191,7 +208,7 @@ app.get('/lyrics/10', async (req, res) => {
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
-    var snippet = await getSnippet(track_id);
+    var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
     var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)

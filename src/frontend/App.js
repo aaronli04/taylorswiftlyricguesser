@@ -14,7 +14,7 @@ function App() {
   // Get lyrics from backend
   useEffect(() => {
       async function fetchLyrics() {
-        const response = await fetch('http://localhost:5002/lyrics/8');
+        const response = await fetch('http://localhost:5002/lyrics/2');
         const songAndLyric = await response.json();
         setSongName(songAndLyric[0])
         setLyrics(songAndLyric[1]);
