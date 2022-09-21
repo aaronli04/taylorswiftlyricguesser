@@ -59,7 +59,9 @@ var lastSnippet;
 function getSnippet(track_id, album_id, albumName) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `track.snippet.get?apikey=${API_KEY}&track_id=${track_id}`).then((response) => {
-            if (response.data.message.body.snippet === null || response.data.message.body.snippet === undefined) {
+            if (response.data.message.body.snippet === null || response.data.message.body.snippet === undefined ||
+                response.data.message.body.snippet.snippet_body === '' ||
+                response.data.message.body.snippet.snippet_body === lastSnippet) {
                 count++;
                 if (count < 5) {
                     getSnippet(track_id);
@@ -72,7 +74,7 @@ function getSnippet(track_id, album_id, albumName) {
                     count = 0;
                 }
             }
-            else if (response.data.message.body.snippet.snippet_body !== lastSnippet) {
+            else {
                 var snippet = response.data.message.body.snippet.snippet_body;
                 lastSnippet = snippet
                 resolve(snippet);
