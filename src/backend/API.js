@@ -21,10 +21,16 @@ function getTaylorSwiftID() {
 function getAlbumID(id, albumName) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `artist.albums.get?apikey=${API_KEY}&artist_id=${id}`).then((response) => {
-            for (let i = 0; i < response.data.message.body.album_list.length; i++) {
-                if (response.data.message.body.album_list[i].album.album_name === `${albumName}`) {
-                    var album_id = response.data.message.body.album_list[i].album.album_id;
-                    resolve(album_id);
+            if (response.data.message.body.album_list === null || response.data.message.body.album_list === undefined ||
+                response.data.message.body.album_list === '') {
+                    getAlbumID(id, albumName);
+            }
+            else {
+                for (let i = 0; i < response.data.message.body.album_list.length; i++) {
+                    if (response.data.message.body.album_list[i].album.album_name === `${albumName}`) {
+                        var album_id = response.data.message.body.album_list[i].album.album_id;
+                        resolve(album_id);
+                    }
                 }
             }
         });

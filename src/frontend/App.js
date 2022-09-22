@@ -13,7 +13,10 @@ function App() {
 
   // Change album number based on what album the user selects
   var [albumNumber, setAlbumNumber] = useState();
-  var albumNumberList = [0];
+  var [songGuess, setSongGuess] = useState('')
+  var [songGuessFinal, setSongGuessFinal] = useState('')
+
+  var albumNumberList = [0]
 
   // Get lyrics and songname from backend, set variables
   useEffect(() => {
@@ -27,6 +30,7 @@ function App() {
     fetchLyrics();
   }, albumNumberList);
 
+  // Album list for select drop down
   const albumsList = [
     {value: 1, label: 'You All Over Me (feat. Maren Morris) (Taylor\'s Version) (From The Vault)'},
     {value: 2, label: '1989'},
@@ -45,6 +49,15 @@ function App() {
     albumNumberList[0]=e.value;
   }
 
+  const handleSongGuess = e => {
+    setSongGuess(e.target.value)
+  }
+
+  const handleSongSubmit = e => {
+    e.preventDefault();
+    setSongGuessFinal(songGuess);
+  }
+
   return (
       <div className='App'>
         <div className='Title'>
@@ -55,7 +68,11 @@ function App() {
         <div className='Selector'>
           <Select options={albumsList} onChange={handleAlbumNumber} placeholder='Select album'/>
         </div>
-        {albumNumber}
+        <input onChange={handleSongGuess} placeholder='Enter Song Name Here' type='text' required></input>
+        <form onSubmit={handleSongSubmit}>
+          <button>Submit</button>
+        </form>
+        {songGuessFinal}
         <h2>
           {"Song Name: "} {songName}
         </h2>
