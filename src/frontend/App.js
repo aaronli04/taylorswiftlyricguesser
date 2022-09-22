@@ -46,7 +46,9 @@ function App() {
         </div>
         <div className='Description'>Exposing the Kanye Stans</div>
         <img src={Tayye}></img>
-        <Select options={albumsList} />
+        <div className='Selector'>
+          <Select options={albumsList} />
+        </div>
         <h2>
           {"Song Name: "} {songName}
         </h2>
