@@ -12,7 +12,8 @@ function App() {
   var [lyrics, setLyrics] = useState();
 
   // Change album number based on what album the user selects
-  var [albumNumber, setAlbumNumber] = useState(6);
+  var [albumNumber, setAlbumNumber] = useState();
+  var albumNumberList = [0];
 
   // Get lyrics and songname from backend, set variables
   useEffect(() => {
@@ -24,7 +25,7 @@ function App() {
         return songAndLyric;
       }
     fetchLyrics();
-  }, []);
+  }, albumNumberList);
 
   const albumsList = [
     {value: 1, label: 'You All Over Me (feat. Maren Morris) (Taylor\'s Version) (From The Vault)'},
@@ -41,6 +42,7 @@ function App() {
 
   const handleAlbumNumber = e => {
     setAlbumNumber(e.value);
+    albumNumberList[0]=e.value;
   }
 
   return (
@@ -50,7 +52,6 @@ function App() {
         </div>
         <div className='Description'>Exposing the Kanye Stans</div>
         <img src={Tayye}></img>
-
         <div className='Selector'>
           <Select options={albumsList} onChange={handleAlbumNumber} placeholder='Select album'/>
         </div>
