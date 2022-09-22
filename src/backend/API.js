@@ -35,6 +35,10 @@ function getAlbumID(id, albumName) {
 function getTrackID(album_id) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `album.tracks.get?apikey=${API_KEY}&album_id=${album_id}`).then((response) => {
+            if (response.data.message.body.snippet === null || response.data.message.body.snippet === undefined ||
+                response.data.message.body.snippet.snippet_body === '') {
+                    getTrackID(album_id);
+            }
             let album_length = response.data.message.body.track_list.length;
             let random_track = Math.floor(Math.random() * album_length);
             var track_id = response.data.message.body.track_list[random_track].track.track_id;

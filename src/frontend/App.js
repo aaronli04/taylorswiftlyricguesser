@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { useState, useEffect } from 'react';
 import Tayye from './Tayye.jpg';
-
+import Select from 'react-select';
 const albumName = 'Fearless (Taylor\'s Version)';
 
 function App() {
@@ -26,13 +26,27 @@ function App() {
     fetchLyrics();
   }, []);
 
+  const albumsList = [
+    {value: 1, label: 'You All Over Me (feat. Maren Morris) (Taylor\'s Version) (From The Vault)'},
+    {value: 2, label: '1989'},
+    {value: 3, label: 'Lover'},
+    {value: 4, label: '...Ready For It?'},
+    {value: 5, label: 'reputation'},
+    {value: 6, label: 'Red (Taylor\'s Version)'},
+    {value: 7, label: 'Mr. Perfectly Fine (Taylor\u2019s Version) (From The Vault)'},
+    {value: 8, label: 'folklore'},
+    {value: 9, label: 'Fearless (Taylor\'s Version)'},
+    {value: 10, label: 'The Archer'}
+  ]
+
   return (
       <div className='App'>
         <div className='Title'>
           SWIFTOMETER
         </div>
-        <div className='Description'>Exposing the Fake Swifties (Kanye Stans)</div>
+        <div className='Description'>Exposing the Kanye Stans</div>
         <img src={Tayye}></img>
+        <Select options={albumsList} />
         <h2>
           {"Song Name: "} {songName}
         </h2>
