@@ -15,6 +15,7 @@ function App() {
   var [albumNumber, setAlbumNumber] = useState();
   var [songGuess, setSongGuess] = useState('')
   var [songGuessFinal, setSongGuessFinal] = useState('')
+  var [userCorrect, setUserCorrect] = useState()
 
   var albumNumberList = [0]
 
@@ -25,6 +26,7 @@ function App() {
         const songAndLyric = await response.json();
         setSongName(songAndLyric[0]);
         setLyrics(songAndLyric[1]);
+        determineRightOrWrong(songGuessFinal, songName)
         return songAndLyric;
       }
     fetchLyrics();
@@ -58,6 +60,16 @@ function App() {
     setSongGuessFinal(songGuess);
   }
 
+  function determineRightOrWrong(songGuessFinal, songName) {
+    if (songGuessFinal === songName) {
+      setUserCorrect(true);
+    }
+    else {
+      setUserCorrect(false)
+    }
+    console.log(userCorrect)
+  }
+
   return (
       <div className='App'>
         <div className='Title'>
@@ -73,6 +85,7 @@ function App() {
           <button>Submit</button>
         </form>
         {songGuessFinal}
+        {userCorrect}
         <h2>
           {"Song Name: "} {songName}
         </h2>
