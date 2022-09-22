@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { useState, useEffect } from 'react';
+import Tayye from './Tayye.jpg';
 
 const albumName = 'Fearless (Taylor\'s Version)';
 
@@ -10,7 +11,7 @@ function App() {
   var [songName, setSongName] = useState();
   var [lyrics, setLyrics] = useState();
 
-  // Change based on album the user selects
+  // Change album number based on what album the user selects
   var [albumNumber, setAlbumNumber] = useState(6);
 
   // Get lyrics and songname from backend, set variables
@@ -18,7 +19,7 @@ function App() {
       async function fetchLyrics() {
         const response = await fetch(`http://localhost:5002/lyrics/${albumNumber}`);
         const songAndLyric = await response.json();
-        setSongName(songAndLyric[0])
+        setSongName(songAndLyric[0]);
         setLyrics(songAndLyric[1]);
         return songAndLyric;
       }
@@ -28,8 +29,10 @@ function App() {
   return (
       <div className='App'>
         <div className='Title'>
-          Swiftinator
+          SWIFTOMETER
         </div>
+        <div className='Description'>Exposing the Fake Swifties (Kanye Stans)</div>
+        <img src={Tayye}></img>
         <h2>
           {"Song Name: "} {songName}
         </h2>
