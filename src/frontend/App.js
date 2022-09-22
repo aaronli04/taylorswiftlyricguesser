@@ -39,6 +39,10 @@ function App() {
     {value: 10, label: 'The Archer'}
   ]
 
+  const handleAlbumNumber = e => {
+    setAlbumNumber(e.value);
+  }
+
   return (
       <div className='App'>
         <div className='Title'>
@@ -46,9 +50,11 @@ function App() {
         </div>
         <div className='Description'>Exposing the Kanye Stans</div>
         <img src={Tayye}></img>
+
         <div className='Selector'>
-          <Select options={albumsList} />
+          <Select options={albumsList} onChange={handleAlbumNumber} placeholder='Select album'/>
         </div>
+        {albumNumber}
         <h2>
           {"Song Name: "} {songName}
         </h2>
