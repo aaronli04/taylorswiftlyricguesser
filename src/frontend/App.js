@@ -12,7 +12,7 @@ function App() {
   var [lyrics, setLyrics] = useState();
 
   // Change album number based on what album the user selects
-  var [albumNumber, setAlbumNumber] = useState(2);
+  var [albumNumber, setAlbumNumber] = useState();
 
   // Variables to check if user guess was correct
   var [songGuess, setSongGuess] = useState('')
@@ -46,7 +46,7 @@ function App() {
       return songAndLyric;
     }
     fetchLyrics();
-  }, songNameList);
+  }, [songGuessFinal]);
 
   // Every time submit is clicked, check if user guess is same as actual song name
   // If so, increment number of guesses correct by 1
@@ -68,7 +68,7 @@ function App() {
     else {
       console.log('error')
     }
-  }, songNameList)
+  }, [songGuessFinal])
 
   // Album list for select drop down
   const albumsList = [
@@ -99,7 +99,6 @@ function App() {
   const handleSongSubmit = e => {
     e.preventDefault();
     setSongGuessFinal(songGuess);
-    songNameList[0] = songGuessFinal;
   }
 
   return (

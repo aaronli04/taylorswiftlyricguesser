@@ -6,7 +6,6 @@ const app = express();
 const PORT = 5002;
 const BASE_URL = 'http://api.musixmatch.com/ws/1.1/';
 const API_KEY = 'a2943de1ee91289dd09dcaefad5cab47';
-const TAYLORSWIFTID = 259675;
 
 // Search for Taylor Swift
 function getTaylorSwiftID() {
@@ -26,7 +25,7 @@ function getAlbumID(id, albumName) {
             if (response.data.message.body.album_list === null || response.data.message.body.album_list === undefined ||
                 response.data.message.body.album_list === '' || response.data.message.body.album_list.length === 0) {
                     tryCount++;
-                    if (tryCount < 5) {
+                    if (tryCount < 2) {
                         getAlbumID(id, albumName);
                     }
                     else {
@@ -54,7 +53,7 @@ function getTrackID(album_id) {
             if (response.data.message.body.track_list === null || response.data.message.body.track_list === undefined ||
                 response.data.message.body.track_list === '') {
                     tryCountTrack++;
-                    if (tryCount < 5) {
+                    if (tryCountTrack < 2) {
                         getTrackID(album_id)                        
                     }
                     else {
@@ -118,7 +117,7 @@ app.use(cors());
 // You All Over Me (feat. Maren Morris) (Taylor's Version) (From The Vault)
 app.get('/lyrics/1', async (req, res) => {
     var albumName = 'You All Over Me (feat. Maren Morris) (Taylor\u2019s Version) (From The Vault)';
-    var id = TAYLORSWIFTID;
+    var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
@@ -131,7 +130,7 @@ app.get('/lyrics/1', async (req, res) => {
 // 1989
 app.get('/lyrics/2', async (req, res) => {
     var albumName = '1989';
-    var id = TAYLORSWIFTID;
+    var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
@@ -144,7 +143,7 @@ app.get('/lyrics/2', async (req, res) => {
 // Lover
 app.get('/lyrics/3', async (req, res) => {
     var albumName = 'Lover';
-    var id = TAYLORSWIFTID;
+    var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
@@ -157,7 +156,7 @@ app.get('/lyrics/3', async (req, res) => {
 // ...Ready For It?
 app.get('/lyrics/4', async (req, res) => {
     var albumName = '...Ready For It?';
-    var id = TAYLORSWIFTID;
+    var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
@@ -170,7 +169,7 @@ app.get('/lyrics/4', async (req, res) => {
 // reputation
 app.get('/lyrics/5', async (req, res) => {
     var albumName = 'reputation';
-    var id = TAYLORSWIFTID;
+    var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
@@ -183,7 +182,7 @@ app.get('/lyrics/5', async (req, res) => {
 // Red (Taylor's Version)
 app.get('/lyrics/6', async (req, res) => {
     var albumName = 'Red (Taylor\'s Version)';
-    var id = TAYLORSWIFTID;
+    var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
@@ -196,7 +195,7 @@ app.get('/lyrics/6', async (req, res) => {
 // Mr. Perfectly Fine (Taylor\u2019s Version) (From The Vault)
 app.get('/lyrics/7', async (req, res) => {
     var albumName = 'Mr. Perfectly Fine (Taylor\u2019s Version) (From The Vault)';
-    var id = TAYLORSWIFTID;
+    var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
@@ -209,7 +208,7 @@ app.get('/lyrics/7', async (req, res) => {
 // folklore
 app.get('/lyrics/8', async (req, res) => {
     var albumName = 'folklore';
-    var id = TAYLORSWIFTID;
+    var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
@@ -222,7 +221,7 @@ app.get('/lyrics/8', async (req, res) => {
 // Fearless (Taylor's Version)
 app.get('/lyrics/9', async (req, res) => {
     var albumName = 'Fearless (Taylor\'s Version)';
-    var id = TAYLORSWIFTID;
+    var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
@@ -235,7 +234,7 @@ app.get('/lyrics/9', async (req, res) => {
 // The Archer
 app.get('/lyrics/10', async (req, res) => {
     var albumName = 'The Archer';
-    var id = TAYLORSWIFTID;
+    var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
     var trackName = await getTrackFromID(track_id);
