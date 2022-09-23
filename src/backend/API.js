@@ -18,12 +18,19 @@ function getTaylorSwiftID() {
 }
 
 // Get album ID by album name
+var tryCount = 5;
 function getAlbumID(id, albumName) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `artist.albums.get?apikey=${API_KEY}&artist_id=${id}`).then((response) => {
             if (response.data.message.body.album_list === null || response.data.message.body.album_list === undefined ||
-                response.data.message.body.album_list === '') {
-                    getAlbumID(id, albumName);
+                response.data.message.body.album_list === '' || response.data.message.body.album_list.length === 0) {
+                    tryCount++;
+                    if (tryCount < 5) {
+                        getAlbumID(id, albumName);
+                    }
+                    else {
+                        console.log('problem')
+                    }
             }
             else {
                 for (let i = 0; i < response.data.message.body.album_list.length; i++) {
@@ -38,13 +45,26 @@ function getAlbumID(id, albumName) {
 }
 
 // Take album ID, return random track ID
+var tryCountTrack = 0;
 function getTrackID(album_id) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `album.tracks.get?apikey=${API_KEY}&album_id=${album_id}`).then((response) => {
-            let album_length = response.data.message.body.track_list.length;
-            let random_track = Math.floor(Math.random() * album_length);
-            var track_id = response.data.message.body.track_list[random_track].track.track_id;
-            resolve(track_id);
+            if (response.data.message.body.track_list === null || response.data.message.body.track_list === undefined ||
+                response.data.message.body.track_list === '') {
+                    tryCountTrack++;
+                    if (tryCount < 5) {
+                        getTrackID(album_id)                        
+                    }
+                    else {
+                        console.log('error')
+                    }
+            }
+            else {
+                let album_length = response.data.message.body.track_list.length;
+                let random_track = Math.floor(Math.random() * album_length);
+                var track_id = response.data.message.body.track_list[random_track].track.track_id;
+                resolve(track_id);
+            }
         });
     });
 }

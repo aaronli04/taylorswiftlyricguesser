@@ -12,12 +12,14 @@ function App() {
   var [lyrics, setLyrics] = useState();
 
   // Change album number based on what album the user selects
-  var [albumNumber, setAlbumNumber] = useState();
+  var [albumNumber, setAlbumNumber] = useState(1);
   var [songGuess, setSongGuess] = useState('')
   var [songGuessFinal, setSongGuessFinal] = useState('')
-  var [userCorrect, setUserCorrect] = useState()
+  var [userCorrect, setUserCorrect] = useState(true)
+  var [numberCorrect, setNumberCorrect] = useState(0)
 
   var albumNumberList = [0]
+  var songNameList = ['']
 
   // Get lyrics and songname from backend, set variables
   useEffect(() => {
@@ -26,11 +28,30 @@ function App() {
         const songAndLyric = await response.json();
         setSongName(songAndLyric[0]);
         setLyrics(songAndLyric[1]);
-        determineRightOrWrong(songGuessFinal, songName)
         return songAndLyric;
       }
     fetchLyrics();
   }, albumNumberList);
+
+  useEffect(() => {
+    if (songGuessFinal !== undefined && songName !== undefined && songGuessFinal !== '' && songName !== '') {
+      console.log('hello')
+      console.log(songGuessFinal)
+      console.log(songName)
+      if (songGuessFinal.trim() === songName.trim()) {
+        setUserCorrect(true);
+        setNumberCorrect(numberCorrect + 1);
+        console.log(userCorrect)
+        console.log(numberCorrect)
+      }
+      else {
+        setUserCorrect(false)
+      }
+    }
+    else {
+      console.log('error')
+    }
+  }, songNameList)
 
   // Album list for select drop down
   const albumsList = [
@@ -58,16 +79,7 @@ function App() {
   const handleSongSubmit = e => {
     e.preventDefault();
     setSongGuessFinal(songGuess);
-  }
-
-  function determineRightOrWrong(songGuessFinal, songName) {
-    if (songGuessFinal === songName) {
-      setUserCorrect(true);
-    }
-    else {
-      setUserCorrect(false)
-    }
-    console.log(userCorrect)
+    songNameList[0] = songGuessFinal;
   }
 
   return (
@@ -76,7 +88,7 @@ function App() {
           SWIFTOMETER
         </div>
         <div className='Description'>Exposing the Kanye Stans</div>
-        <img src={Tayye}></img>
+        <img alt='Tayye' src={Tayye}></img>
         <div className='Selector'>
           <Select options={albumsList} onChange={handleAlbumNumber} placeholder='Select album'/>
         </div>
