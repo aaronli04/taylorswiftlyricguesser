@@ -29,7 +29,8 @@ function getAlbumID(id, albumName) {
                         getAlbumID(id, albumName);
                     }
                     else {
-                        console.log('problem')
+                        console.log(id)
+                        console.log(albumName)
                     }
             }
             else {
