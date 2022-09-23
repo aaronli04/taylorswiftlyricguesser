@@ -12,7 +12,7 @@ function App() {
   var [lyrics, setLyrics] = useState();
 
   // Change album number based on what album the user selects
-  var [albumNumber, setAlbumNumber] = useState(1);
+  var [albumNumber, setAlbumNumber] = useState(2);
   var [songGuess, setSongGuess] = useState('')
   var [songGuessFinal, setSongGuessFinal] = useState('')
   var [userCorrect, setUserCorrect] = useState(true)
@@ -32,6 +32,17 @@ function App() {
       }
     fetchLyrics();
   }, albumNumberList);
+
+  useEffect(() => {
+    async function fetchLyrics() {
+      const response = await fetch(`http://localhost:5002/lyrics/${albumNumber}`);
+      const songAndLyric = await response.json();
+      setSongName(songAndLyric[0]);
+      setLyrics(songAndLyric[1]);
+      return songAndLyric;
+    }
+  fetchLyrics();
+}, songNameList);
 
   useEffect(() => {
     if (songGuessFinal !== undefined && songName !== undefined && songGuessFinal !== '' && songName !== '') {
