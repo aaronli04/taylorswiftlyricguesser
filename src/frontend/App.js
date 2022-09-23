@@ -20,12 +20,9 @@ function App() {
   var [userCorrect, setUserCorrect] = useState(true)
   var [numberCorrect, setNumberCorrect] = useState(0)
 
-  // Lists for useEffect() for new songs to be loaded every time the album changes or submit is clicked
-  var albumNumberList = [0]
-  var songNameList = ['']
-
   // Get lyrics and songname every time album is changed
   useEffect(() => {
+    console.log(albumNumber)
       async function fetchLyrics() {
         const response = await fetch(`http://localhost:5002/lyrics/${albumNumber}`);
         const songAndLyric = await response.json();
@@ -34,19 +31,8 @@ function App() {
         return songAndLyric;
       }
     fetchLyrics();
-  }, albumNumberList);
+  }, [albumNumber, songGuessFinal]);
 
-  // Get lyrics and songname every time submit is clicked 
-  useEffect(() => {
-    async function fetchLyrics() {
-      const response = await fetch(`http://localhost:5002/lyrics/${albumNumber}`);
-      const songAndLyric = await response.json();
-      setSongName(songAndLyric[0]);
-      setLyrics(songAndLyric[1]);
-      return songAndLyric;
-    }
-    fetchLyrics();
-  }, [songGuessFinal]);
 
   // Every time submit is clicked, check if user guess is same as actual song name
   // If so, increment number of guesses correct by 1
@@ -59,7 +45,6 @@ function App() {
         setUserCorrect(true);
         setNumberCorrect(numberCorrect + 1);
         console.log(userCorrect)
-        console.log(numberCorrect)
       }
       else {
         setUserCorrect(false)
@@ -88,7 +73,6 @@ function App() {
     console.log(typeof e.value)
     if (typeof e.value == 'number') {
       setAlbumNumber(e.value);
-      albumNumberList[0]=e.value;
     }
   }
 
