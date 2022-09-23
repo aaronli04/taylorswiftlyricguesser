@@ -68,8 +68,11 @@ function App() {
   ]
 
   const handleAlbumNumber = e => {
-    setAlbumNumber(e.value);
-    albumNumberList[0]=e.value;
+    console.log(typeof e.value)
+    if (typeof e.value == 'number') {
+      setAlbumNumber(e.value);
+      albumNumberList[0]=e.value;
+    }
   }
 
   const handleSongGuess = e => {
