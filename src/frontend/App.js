@@ -97,7 +97,7 @@ function App() {
           <button>Submit</button>
         </form>
         {songGuessFinal}
-        {userCorrect}
+        {'' + numberCorrect}
         <h2>
           {"Song Name: "} {songName}
         </h2>
