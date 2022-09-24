@@ -46,7 +46,7 @@ function App() {
     if (playing === true) {
       if (songGuessFinal !== undefined && songName !== undefined && songGuessFinal !== '' && songName !== '') {
         setTotalGuess(totalGuess + 1);
-        if (songGuessFinal.trim() === songName.trim()) {
+        if (songGuessFinal.trim().toLowerCase() === songName.trim().toLowerCase()) {
           setNumberCorrect(numberCorrect + 1);
         }
       }
@@ -71,7 +71,7 @@ function App() {
   function setUserMessage() {
     // If they get 100%
     if (numberCorrect === totalGuess) {
-      setMessage(`You got ${numberCorrect} out of ${totalGuess} songs correct. Either you\'re cheating or you really need to get a job.`)
+      setMessage(`You got ${numberCorrect} out of ${totalGuess} songs correct. Either you're cheating or you really need to get a job.`)
     }
     // If they get above or equal to 67% but not 100%
     else if (numberCorrect >= totalGuess * (2/3) && numberCorrect !== totalGuess) {
@@ -83,7 +83,7 @@ function App() {
     }
     // If they get below 60% but more than or equal to 50%
     else if (numberCorrect < totalGuess * (3/5) && numberCorrect >= totalGuess * (1/2)) {
-      setMessage(`With just ${numberCorrect} out of ${totalGuess} songs correct, I have to ask: were you even trying? You\'re an embarassment.`)
+      setMessage(`With just ${numberCorrect} out of ${totalGuess} songs correct, I have to ask: were you even trying? You're an embarassment.`)
     }
     // If they get below 50% correct 
     else {
@@ -123,6 +123,7 @@ function App() {
     setLyrics('Pick an album bozo. Don\'t select 1989 -- the API is glitching.')
     setMessage();
     setPlaying(true);
+    setTotalGuess(0)
   }
 
   return (
