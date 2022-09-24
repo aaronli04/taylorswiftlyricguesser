@@ -28,14 +28,19 @@ function App() {
   // Get lyrics and song name every time the album is changed or the user submits a guess
   useEffect(() => {
       async function fetchLyrics() {
-        const response = await fetch(`http://localhost:5002/lyrics/${albumNumber}`);
-        const songAndLyric = await response.json();
-        setSongName(songAndLyric[0]);
-        setLyrics(songAndLyric[1]);
-        return songAndLyric;
+        console.log(albumNumber)
+        try {
+          const response = await fetch(`http://localhost:5002/lyrics/${albumNumber}`);
+          const songAndLyric = await response.json();
+          setSongName(songAndLyric[0]);
+          setLyrics(songAndLyric[1]);
+          return songAndLyric;
+        } catch (error) {
+          console.log(error)
+        }
       }
       if (playing === true) {
-        fetchLyrics();
+          fetchLyrics();
       }
   }, [albumNumber, songGuessFinal]);
 
@@ -94,7 +99,8 @@ function App() {
   // Handler to record and incorporate new album selections
   const handleAlbumNumber = e => {
     if (typeof e.value == 'number') {
-      setAlbumNumber(e.value);
+      console.log(e.value)
+      setAlbumNumber(e.value.toString());
     }
   }
 

@@ -5,7 +5,7 @@ import cors from "cors";
 const app = express();
 const PORT = 5002;
 const BASE_URL = 'http://api.musixmatch.com/ws/1.1/';
-const API_KEY = 'a2943de1ee91289dd09dcaefad5cab47';
+const API_KEY = '0da6e3a7e25655684a8d119ad8d8f18e';
 
 // Search for Taylor Swift's artist ID
 function getTaylorSwiftID() {
@@ -27,7 +27,7 @@ function getAlbumID(id, albumName) {
                     resolve(album_id);
                 }
             }
-        });
+        })
     });
 }
 
@@ -101,7 +101,7 @@ app.get('/lyrics/1', async (req, res) => {
 
 // 1989
 app.get('/lyrics/2', async (req, res) => {
-    var albumName = '1989';
+    var albumName = "1989";
     var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
@@ -212,7 +212,7 @@ app.get('/lyrics/10', async (req, res) => {
     var trackName = await getTrackFromID(track_id);
     var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
-    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
+    var JSONTrackAndLyric = JSON.stringi¯fy(trackAndLyric);
     res.send(JSONTrackAndLyric)
 });
 
