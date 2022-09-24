@@ -212,7 +212,7 @@ app.get('/lyrics/10', async (req, res) => {
     var trackName = await getTrackFromID(track_id);
     var snippet = await getSnippet(track_id, album_id, albumName);
     var trackAndLyric = [trackName, snippet];
-    var JSONTrackAndLyric = JSON.stringi¯fy(trackAndLyric);
+    var JSONTrackAndLyric = JSON.stringify(trackAndLyric);
     res.send(JSONTrackAndLyric)
 });
 
