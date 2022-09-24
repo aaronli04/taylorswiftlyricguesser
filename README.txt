@@ -1,7 +1,7 @@
 Full Name: Aaron Li
 Vanderbilt Email: aaron.li@vanderbilt.edu
 
-##Instructions
+## Instructions
 Swiftometer is a React project. Once one has React, to run the program, several
 packages have to be installed.
 - For the backend: express, axios, cors
@@ -26,7 +26,7 @@ until the Musixmatch API calls run out or the user clicks the End Game Button. W
 the game is over, the game startistics and a mean message will load at the bottom 
 (with Swiftometer, you can do no right).
 
-##Bugs/Features that should be improved
+## Bugs/Features that should be improved
 Before I get to the reflection, there are several bugs/poor UX features I have found 
 but have struggled to fix in my code. 
 1. Slow lyric displays. Due to being on the free version of the API, sometimes the 
