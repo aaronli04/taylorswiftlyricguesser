@@ -136,7 +136,7 @@ function App() {
           <input className='Field' value={songGuess} onChange={handleSongGuess} onFocus={(e) => e.target.placeholder = ""} 
           onBlur={(e) => e.target.placeholder = "Enter Song Name Here"} placeholder='Enter Song Name Here'
           type='text' required></input>
-          <button className='Submit'>Submit</button>
+          <button className='Submit'>SUBMIT</button>
         </form>
         <button onClick={handleGameOver}>End Game</button>
         <button onClick={handleGameStart}>Play Again</button>
