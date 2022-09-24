@@ -9,7 +9,7 @@ function App() {
   
   // Store lyrics and song name in the frontend
   var [songName, setSongName] = useState();
-  var [lyrics, setLyrics] = useState();
+  var [lyrics, setLyrics] = useState('Pick an album bozo');
 
   // Change album number based on what album the user selects
   var [albumNumber, setAlbumNumber] = useState();
@@ -73,23 +73,23 @@ function App() {
   function setUserMessage() {
     // If they get 100%
     if (numberCorrect === totalGuess) {
-      setMessage('Either you\'re cheating or you really need to get a job.')
+      setMessage(`You got ${numberCorrect} out of ${totalGuess} songs correct. Either you\'re cheating or you really need to get a job.`)
     }
     // If they get above or equal to 67% but not 100%
     else if (numberCorrect >= totalGuess * (2/3) && numberCorrect !== totalGuess) {
-      setMessage('Try harder next time bud.')
+      setMessage(`You only got ${numberCorrect} out of ${totalGuess} songs correct. Try harder next time bud.`)
     }
     // If they get less than 67% correct but more than or equal to 60%
     else if (numberCorrect < totalGuess * (2/3) && numberCorrect >= totalGuess * (3/5)) {
-      setMessage(`You're not even at a C, just say you hate Taylor Swift already.`)
+      setMessage(`Even saying your score is painful. You got ${numberCorrect} out of ${totalGuess} songs correct. You're not even at a C, just say you hate Taylor Swift already.`)
     }
     // If they get below 60% but more than or equal to 50%
     else if (numberCorrect < totalGuess * (3/5) && numberCorrect >= totalGuess * (1/2)) {
-      setMessage('Were you even trying? You\'re an embarassment.')
+      setMessage(`With just ${numberCorrect} out of ${totalGuess} songs correct, I have to ask: were you even trying? You\'re an embarassment.`)
     }
     // If they get below 50% correct 
     else {
-      setMessage('Stop stannning Kanye and go find yourself a personality.')
+      setMessage(`I guess you were proving how poor your memory could be by getting ${numberCorrect} out of ${totalGuess} songs correct. Stop stannning Kanye and go find yourself a personality.`)
     }
   }
 
@@ -112,12 +112,13 @@ function App() {
 
   const handleGameOver = e => {
     setUserMessage();
-    setLyrics()
+    setLyrics('IMPORTANT MESSAGE BELOW')
     setPlaying(false);
   }
 
   const handleGameStart = e => {
     setNumberCorrect(0);
+    setLyrics('Pick an album bozo')
     setMessage('');
     setPlaying(true);
   }
@@ -132,21 +133,23 @@ function App() {
         <div className='Selector'>
           <Select options={albumsList} onChange={handleAlbumNumber} placeholder='Select album'/>
         </div>
+        <div className='Lyric'>
+          {'Lyric: ' + lyrics}
+        </div>
         <form onSubmit={handleSongSubmit}>
           <input className='Field' value={songGuess} onChange={handleSongGuess} onFocus={(e) => e.target.placeholder = ""} 
           onBlur={(e) => e.target.placeholder = "Enter Song Name Here"} placeholder='Enter Song Name Here'
           type='text' required></input>
           <button className='Submit'>SUBMIT</button>
         </form>
-        <button onClick={handleGameOver}>End Game</button>
-        <button onClick={handleGameStart}>Play Again</button>
-        {'' + numberCorrect}
-        <h2>
+        <div className='Description'>
+          {'Correct Guesses: ' + numberCorrect}
+        </div>
+        <button className='Button' onClick={handleGameOver}>End Game</button>
+        <button className='Button' onClick={handleGameStart}>Play Again</button>
+        <div className='Description'>
           {message}
-        </h2>
-        <h3>
-          {lyrics}
-        </h3>
+        </div>
       </div>
   );
 }
