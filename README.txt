@@ -14,7 +14,12 @@ Sometimes, the album is just one song and snippet. Once the user guesses the son
 getSnippet function that prevents a duplicate snippet from showing. Each snippet in multiple song and multiple snippet albums is guarunteed to be different 
 from the last.
 
-Once the user has typed their guess into the "Enter Song Name Here" textfield and clicked the submit button, their response will be compared to the actual song name. To get a correct guess, the spelling must exactly match the full name of the song (e.g. Love Story is not the same as Love Story (Taylor's Version)). However, capitalization does not matter. If their guess is correct, the number next to the Correct Guesses display will increase by 1. Swiftometer will continue giving lyrics until the Musixmatch API calls run out or the user clicks the End Game Button. When the game is over, the game statistics and a mean message will load at the bottom (with Swiftometer, you can do no right). The user can play again by pressing the play again button. To load the next lyric, though, the user has to switch the album selected (due to how the useEffect is set up).
+Once the user has typed their guess into the "Enter Song Name Here" textfield and clicked the submit button, their response will be compared to the actual 
+song name. To get a correct guess, the spelling must exactly match the full name of the song (e.g. Love Story is not the same as Love Story (Taylor's 
+Version)). However, capitalization does not matter. If their guess is correct, the number next to the Correct Guesses display will increase by 1. 
+Swiftometer will continue giving lyrics until the Musixmatch API calls run out or the user clicks the End Game Button. When the game is over, the game 
+statistics and a mean message will load at the bottom (with Swiftometer, you can do no right). The user can play again by pressing the play again button. 
+To load the next lyric, though, the user has to switch the album selected (due to how the useEffect is set up).
 
 
 Bugs/Features that should be improved:
