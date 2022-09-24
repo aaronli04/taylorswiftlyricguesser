@@ -7,7 +7,7 @@ const PORT = 5002;
 const BASE_URL = 'http://api.musixmatch.com/ws/1.1/';
 const API_KEY = 'a2943de1ee91289dd09dcaefad5cab47';
 
-// Search for Taylor Swift
+// Search for Taylor Swift's artist ID
 function getTaylorSwiftID() {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `artist.search?apikey=${API_KEY}&q_artist=Taylor%20Swift&page_size=1`).then((response) => {
@@ -17,7 +17,7 @@ function getTaylorSwiftID() {
     });
 }
 
-// Get album ID by album name
+// Get the precise Taylor Swift album ID based on album the user selected
 function getAlbumID(id, albumName) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `artist.albums.get?apikey=${API_KEY}&artist_id=${id}`).then((response) => {
@@ -31,7 +31,7 @@ function getAlbumID(id, albumName) {
     });
 }
 
-// Take album ID, return random track ID
+// Takes the album ID and return random track ID from the selected album
 function getTrackID(album_id) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `album.tracks.get?apikey=${API_KEY}&album_id=${album_id}`).then((response) => {
@@ -43,7 +43,7 @@ function getTrackID(album_id) {
     });
 }
 
-// Takes track ID, gets song name
+// Takes the track ID and gets the song name
 function getTrackFromID(track_id) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `track.get?apikey=${API_KEY}&track_id=${track_id}`).then((response) => {
@@ -84,7 +84,8 @@ function getSnippet(track_id, album_id, albumName) {
 app.use(cors());
 
 
-// Individual album calls/posts
+// Individual album calls/posts to make the backend easy for the frontend to interact with
+
 // You All Over Me (feat. Maren Morris) (Taylor's Version) (From The Vault)
 app.get('/lyrics/1', async (req, res) => {
     var albumName = 'You All Over Me (feat. Maren Morris) (Taylor\u2019s Version) (From The Vault)';

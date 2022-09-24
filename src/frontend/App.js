@@ -3,27 +3,29 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Tayye from './Tayye.jpg';
 import Select from 'react-select';
-const albumName = 'Fearless (Taylor\'s Version)';
 
 function App() {
   
-  // Store lyrics and song name in the frontend
+  // Store lyrics and actual song name
   var [songName, setSongName] = useState();
-  var [lyrics, setLyrics] = useState('Pick an album bozo. Don\'t start with 1989 -- the API is glitching.');
+  var [lyrics, setLyrics] = useState('Pick an album bozo. Don\'t select 1989 -- the API is glitching.');
 
   // Change album number based on what album the user selects
   var [albumNumber, setAlbumNumber] = useState();
 
-  // Variables to check if user guess was correct
+  // Hooks to check if user guess was correct, track data for final statistics
   var [songGuess, setSongGuess] = useState('')
   var [songGuessFinal, setSongGuessFinal] = useState('')
-  var [userCorrect, setUserCorrect] = useState(true)
   var [totalGuess, setTotalGuess] = useState(0)
   var [numberCorrect, setNumberCorrect] = useState(0)
+
+  // Set up hook to customize message for user when game ends
   var [message, setMessage] = useState()
+
+  // Allows user to play again
   var [playing, setPlaying] = useState(true);
 
-  // Get lyrics and songname every time album is changed
+  // Get lyrics and song name every time the album is changed or the user submits a guess
   useEffect(() => {
       async function fetchLyrics() {
         const response = await fetch(`http://localhost:5002/lyrics/${albumNumber}`);
@@ -38,24 +40,20 @@ function App() {
   }, [albumNumber, songGuessFinal]);
 
 
-  // Every time submit is clicked, check if user guess is same as actual song name
-  // If so, increment number of guesses correct by 1
+  // Every time submit is clicked, check if the user guess is the same as the actual song name
+  // If so, increment number of guesses correct by 1. Total number of guesses is always incremented upon submission
   useEffect(() => {
     if (playing === true) {
       if (songGuessFinal !== undefined && songName !== undefined && songGuessFinal !== '' && songName !== '') {
         setTotalGuess(totalGuess + 1);
         if (songGuessFinal.trim() === songName.trim()) {
-          setUserCorrect(true);
           setNumberCorrect(numberCorrect + 1);
-        }
-        else {
-          setUserCorrect(false)
         }
       }
     }
   }, [songGuessFinal])
 
-  // Album list for select drop down
+  // Album list for the select drop down
   const albumsList = [
     {value: 1, label: 'You All Over Me (feat. Maren Morris) (Taylor\'s Version) (From The Vault)'},
     {value: 2, label: '1989'},
@@ -69,7 +67,7 @@ function App() {
     {value: 10, label: 'The Archer'}
   ]
 
-  // Hate machine designed to roast the user
+  // Hate machine designed to roast the user, displays statistics
   function setUserMessage() {
     // If they get 100%
     if (numberCorrect === totalGuess) {
@@ -93,32 +91,36 @@ function App() {
     }
   }
 
+  // Handler to record and incorporate new album selections
   const handleAlbumNumber = e => {
-    console.log(typeof e.value)
     if (typeof e.value == 'number') {
       setAlbumNumber(e.value);
     }
   }
 
+  // Stores what the user is typing for handleSongSubmit
   const handleSongGuess = e => {
     setSongGuess(e.target.value)
   }
 
+  // Records user guess
   const handleSongSubmit = e => {
     e.preventDefault();
     setSongGuessFinal(songGuess);
     setSongGuess('')
   }
 
+  // When the user ends the game, prints statistics and message
   const handleGameOver = e => {
     setUserMessage();
     setLyrics('IMPORTANT MESSAGE BELOW')
     setPlaying(false);
   }
 
+  // Allows user to play again, give API warning message
   const handleGameStart = e => {
     setNumberCorrect(0);
-    setLyrics('Pick an album bozo. Don\'t start with 1989 -- the API is glitching.')
+    setLyrics('Pick an album bozo. Don\'t select 1989 -- the API is glitching.')
     setMessage();
     setPlaying(true);
   }
@@ -128,7 +130,7 @@ function App() {
         <div className='Title'>
           SWIFTOMETER
         </div>
-        <div className='Description'>Exposing the Kanye Stans</div>
+        <div className='Description'>Exposing Kanye Stans since 2022</div>
         <img alt='Tayye' src={Tayye}></img>
         <div className='Selector'>
           <Select options={albumsList} onChange={handleAlbumNumber} placeholder='Select album'/>
