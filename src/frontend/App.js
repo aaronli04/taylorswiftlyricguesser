@@ -9,7 +9,7 @@ function App() {
   
   // Store lyrics and song name in the frontend
   var [songName, setSongName] = useState();
-  var [lyrics, setLyrics] = useState('Pick an album bozo');
+  var [lyrics, setLyrics] = useState('Pick an album bozo. Don\'t start with 1989 -- the API is glitching.');
 
   // Change album number based on what album the user selects
   var [albumNumber, setAlbumNumber] = useState();
@@ -118,8 +118,8 @@ function App() {
 
   const handleGameStart = e => {
     setNumberCorrect(0);
-    setLyrics('Pick an album bozo')
-    setMessage('');
+    setLyrics('Pick an album bozo. Don\'t start with 1989 -- the API is glitching.')
+    setMessage();
     setPlaying(true);
   }
 
