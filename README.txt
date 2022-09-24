@@ -1,7 +1,7 @@
 Full Name: Aaron Li
 Vanderbilt Email: aaron.li@vanderbilt.edu
 
-## Instructions
+Instructions:
 Swiftometer is a React project. Once one has React, to run the program, several
 packages have to be installed.
 - For the backend: express, axios, cors
@@ -26,7 +26,8 @@ until the Musixmatch API calls run out or the user clicks the End Game Button. W
 the game is over, the game startistics and a mean message will load at the bottom 
 (with Swiftometer, you can do no right).
 
-## Bugs/Features that should be improved
+
+Bugs/Features that should be improved:
 Before I get to the reflection, there are several bugs/poor UX features I have found 
 but have struggled to fix in my code. 
 1. Slow lyric displays. Due to being on the free version of the API, sometimes the 
@@ -54,3 +55,19 @@ could be automatically done, I thought that auto-changing the user's album selec
 wouldn't be that much better. I couldn't think of a definitvely best solution since I 
 like the no back-to-back same snippet feature so I stuck with it.
 
+
+Reflection:
+This project was super grueling but it was also an awesome learning experience. Going
+into it, I knew I had to follow some YouTube tutorials (ended up going through a ton 
+of these) and attending the workshops gave me a good idea of what general direction 
+to go in. I struggled a ton with sorting out the API and backend and finding a way to 
+communicate between frontend and backend was also very difficult. I've definitely 
+probably spent way more time on this than I should (probably 15+ hours in econ class, 
+workshops, and outside of workshops) but Ive genuinely learned so much--probably more 
+about coding than I will learn this whole year in CS1101. Going through the tons of 
+bugs I encountered was frustrating, but I defintely got better at solving them and 
+that moment when the code just works was totally worth it. Awesome challenge and I 
+can't believe I still like Taylor Swift's music after how hard this was. Very 
+grateful for all of you, and especially Mason who helped guide me through debugging 
+my bridge between frontend and backend. Sorry this wasn't under 100 words, but this 
+was just way too great of a learning experience.
