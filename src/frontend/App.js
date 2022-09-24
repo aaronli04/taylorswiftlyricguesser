@@ -133,10 +133,10 @@ function App() {
           <Select options={albumsList} onChange={handleAlbumNumber} placeholder='Select album'/>
         </div>
         <form onSubmit={handleSongSubmit}>
-          <input value={songGuess} onChange={handleSongGuess} onFocus={(e) => e.target.placeholder = ""} 
+          <input className='Field' value={songGuess} onChange={handleSongGuess} onFocus={(e) => e.target.placeholder = ""} 
           onBlur={(e) => e.target.placeholder = "Enter Song Name Here"} placeholder='Enter Song Name Here'
           type='text' required></input>
-          <button>Submit</button>
+          <button className='Submit'>Submit</button>
         </form>
         <button onClick={handleGameOver}>End Game</button>
         <button onClick={handleGameStart}>Play Again</button>
