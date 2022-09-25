@@ -8,7 +8,7 @@ function App() {
   
   // Store lyrics and actual song name
   var [songName, setSongName] = useState();
-  var [lyrics, setLyrics] = useState('Pick an album bozo. Don\'t select 1989 -- the API is glitching.');
+  var [lyrics, setLyrics] = useState('Pick an album bozo.');
 
   // Change album number based on what album the user selects
   var [albumNumber, setAlbumNumber] = useState();
@@ -125,7 +125,7 @@ function App() {
   // Allows user to play again, give API warning message
   const handleGameStart = e => {
     setNumberCorrect(0);
-    setLyrics('Pick an album bozo. Don\'t select 1989 -- the API is glitching.')
+    setLyrics('Pick an album bozo.')
     setMessage();
     setPlaying(true);
     setTotalGuess(0)
