@@ -32,7 +32,8 @@ this process but it is possible that later on a random lyric will load and repla
 
 2. The Rest API built struggles to load songs from 1989 because of the existence of (Karaoke Version) songs that have no body data. I tried to create a 
 workaround for that but it doesn't work, probably because I need to use reactState to set variables in time and properly. If I had more time, I would 
-definitely work on fixing this. On the bright side, though, it did stop the backend from crashing every time the user clicks 1989 on the selector.
+definitely work on fixing this (I couldn't use reactState because I set the file type as a module). On the bright side, though, it did stop the backend 
+from crashing every time the user clicks 1989 on the selector.
 
 3. Snippets on one-track, one-snippet albums like You All Over Me (feat. Maren Morris) (Taylor's Version) (From The Vault). While the getSnippet preventing 
 duplicate snippets is a nice feature, it prevents the submit button from working on these albums as it can't get a new lyric because no snippet qualifies. 
