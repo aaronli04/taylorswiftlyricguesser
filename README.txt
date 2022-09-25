@@ -30,12 +30,9 @@ access. To get around this, I call getSnippet recursively multiple times and eve
 this sometimes leads to lyrics loading outrageously slowly. If the user is struggling with the wait, switching to a new album on the selector will bypass 
 this process but it is possible that later on a random lyric will load and replace the one they're working on.
 
-2. For some reason, the Rest API built struggles to load songs from 1989 without crashing. I have explored various workarounds and can't seem to get why 
-this is the only one that consistently fails to be fetched. Occasionally a couple songs will load, but for the most part, it is inaccessible as it will 
-crash the backend server. It says that the response is undefined and that the .length can't be taken to find an appropriate track. However, when examining 
-the API link and seeing the typeof of the response, it is an array and should work. It works for all the other albums but for some reason it does not work 
-for 1989. Also 1989 only crashes when trying to load the karaoke version of each song. I tried to create a workaround for that but it doesn't work. It did
-stop the backend from craashing everytime though.
+2. The Rest API built struggles to load songs from 1989 because of the existence of (Karaoke Version) songs that have no body data. I tried to create a 
+workaround for that but it doesn't work, probably because I need to use reactState to set variables in time and properly. If I had more time, I would 
+definitely work on fixing this. On the bright side, though, it did stop the backend from crashing every time the user clicks 1989 on the selector.
 
 3. Snippets on one-track, one-snippet albums like You All Over Me (feat. Maren Morris) (Taylor's Version) (From The Vault). While the getSnippet preventing 
 duplicate snippets is a nice feature, it prevents the submit button from working on these albums as it can't get a new lyric because no snippet qualifies. 
