@@ -33,7 +33,7 @@ function App() {
           const response = await fetch(`http://localhost:5002/lyrics/${albumNumber}`);
           const songAndLyric = await response.json();
           setSongName(songAndLyric[0]);
-          setLyrics(songAndLyric[1]);
+          setLyrics('Lyric: ' + songAndLyric[1]);
           return songAndLyric;
         } catch (error) {
           console.log(error)
@@ -142,7 +142,7 @@ function App() {
           <Select options={albumsList} onChange={handleAlbumNumber} placeholder='Select album'/>
         </div>
         <div className='Lyric'>
-          {'Lyric: ' + lyrics}
+          {lyrics}
         </div>
         <form onSubmit={handleSongSubmit}>
           <input className='Field' value={songGuess} onChange={handleSongGuess} onFocus={(e) => e.target.placeholder = ""} 
