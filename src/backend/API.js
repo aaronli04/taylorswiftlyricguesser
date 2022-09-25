@@ -1,11 +1,11 @@
-import express from "express";
+import express, { response } from "express";
 import axios from "axios";
 import cors from "cors";
 
 const app = express();
 const PORT = 5002;
 const BASE_URL = 'http://api.musixmatch.com/ws/1.1/';
-const API_KEY = '0da6e3a7e25655684a8d119ad8d8f18e';
+const API_KEY = 'a2943de1ee91289dd09dcaefad5cab47';
 
 // Search for Taylor Swift's artist ID
 function getTaylorSwiftID() {
@@ -18,13 +18,24 @@ function getTaylorSwiftID() {
 }
 
 // Get the precise Taylor Swift album ID based on album the user selected
+var albumTry = 0;
 function getAlbumID(id, albumName) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `artist.albums.get?apikey=${API_KEY}&artist_id=${id}`).then((response) => {
-            for (let i = 0; i < response.data.message.body.album_list.length; i++) {
-                if (response.data.message.body.album_list[i].album.album_name === `${albumName}`) {
-                    var album_id = response.data.message.body.album_list[i].album.album_id;
-                    resolve(album_id);
+            if (response.data.message.body.album_list == null || response.data.message.body.album_list == undefined) {
+                if (albumTry < 5) {
+                    albumTry++;
+                    console.log('album error')
+                    getAlbumID(id, albumName)
+                }
+            }
+            else {
+                for (var i = 0; i < response.data.message.body.album_list.length; i++) {
+                    if (response.data.message.body.album_list[i].album.album_name === `${albumName}`) {
+                        var album_id = response.data.message.body.album_list[i].album.album_id;
+                        resolve(album_id);
+                        albumTry = 0;
+                    }
                 }
             }
         })
@@ -32,13 +43,37 @@ function getAlbumID(id, albumName) {
 }
 
 // Takes the album ID and return random track ID from the selected album
+var getTrackTry = 0;
+var previous_track_id;
 function getTrackID(album_id) {
     return new Promise((resolve, reject) => {
         axios.get(BASE_URL + `album.tracks.get?apikey=${API_KEY}&album_id=${album_id}`).then((response) => {
-            let album_length = response.data.message.body.track_list.length;
-            let random_track = Math.floor(Math.random() * album_length);
-            var track_id = response.data.message.body.track_list[random_track].track.track_id;
-            resolve(track_id);
+            if (response.data.message.body.track_list == null || response.data.message.body.track_list == undefined) {
+                if (getTrackTry < 5) {
+                    getTrackTry++;
+                    getTrackID(album_id)
+                }
+            } else {
+                var album_length = response.data.message.body.track_list.length;
+                var random_track = Math.floor(Math.random() * album_length);
+                var track_id = response.data.message.body.track_list[random_track].track.track_id;
+                if (album_id == 19649460) {
+                    if (random_track % 2 !== 0 && track_id !== previous_track_id) {
+                        if (getTrackTry < 10) {
+                            getTrackTry++;
+                            getTrackID(19649460)
+                        }
+                    }
+                    else {
+                        resolve(track_id);
+                        previous_track_id = track_id;
+                        getTrackTry = 0;
+                    }
+                }
+                else {
+                    resolve(track_id);
+                }
+            }
         });
     });
 }
@@ -101,7 +136,7 @@ app.get('/lyrics/1', async (req, res) => {
 
 // 1989
 app.get('/lyrics/2', async (req, res) => {
-    var albumName = "1989";
+    var albumName = '1989';
     var id = await getTaylorSwiftID();
     var album_id = await getAlbumID(id, albumName);
     var track_id = await getTrackID(album_id);
