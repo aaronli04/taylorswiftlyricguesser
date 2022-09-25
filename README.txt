@@ -34,7 +34,8 @@ this process but it is possible that later on a random lyric will load and repla
 this is the only one that consistently fails to be fetched. Occasionally a couple songs will load, but for the most part, it is inaccessible as it will 
 crash the backend server. It says that the response is undefined and that the .length can't be taken to find an appropriate track. However, when examining 
 the API link and seeing the typeof of the response, it is an array and should work. It works for all the other albums but for some reason it does not work 
-for 1989.
+for 1989. Also 1989 only crashes when trying to load the karaoke version of each song. I tried to create a workaround for that but it doesn't work. It did
+stop the backend from craashing everytime though.
 
 3. Snippets on one-track, one-snippet albums like You All Over Me (feat. Maren Morris) (Taylor's Version) (From The Vault). While the getSnippet preventing 
 duplicate snippets is a nice feature, it prevents the submit button from working on these albums as it can't get a new lyric because no snippet qualifies. 
