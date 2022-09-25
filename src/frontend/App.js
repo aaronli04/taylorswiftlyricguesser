@@ -99,7 +99,6 @@ function App() {
   // Handler to record and incorporate new album selections
   const handleAlbumNumber = e => {
     if (typeof e.value == 'number') {
-      console.log(e.value)
       setAlbumNumber(e.value.toString());
     }
   }
