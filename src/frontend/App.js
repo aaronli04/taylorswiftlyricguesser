@@ -42,7 +42,7 @@ function App() {
     if (playing === true) {
       fetchLyrics();
     }
-  }, [albumNumber, songGuessFinal, playing]);
+  }, [albumNumber, songGuessFinal]);
 
 
   // Every time submit is clicked, check if the user guess is the same as the actual song name
@@ -56,7 +56,7 @@ function App() {
         }
       }
     }
-  }, [songGuessFinal, numberCorrect, playing, songName, totalGuess])
+  }, [songGuessFinal])
 
   // Album list for the select drop down
   const albumsList = [
