@@ -5,7 +5,10 @@ import cors from "cors";
 const app = express();
 const PORT = 5002;
 const BASE_URL = 'http://api.musixmatch.com/ws/1.1/';
-const API_KEY = 'b2ac0fd6d9f658afe0bf2c4489e36def';
+const API_KEY = 'a2943de1ee91289dd09dcaefad5cab47';
+
+app.use(cors());
+
 
 // Search for Taylor Swift's artist ID
 function getTaylorSwiftID() {
@@ -81,10 +84,6 @@ function getSnippet(track_id, album_id, albumName) {
         });
     });
 }
-
-app.use(cors());
-
-
 // Individual album calls/posts to make the backend easy for the frontend to interact with
 
 // You All Over Me (feat. Maren Morris) (Taylor's Version) (From The Vault)
@@ -217,4 +216,4 @@ app.get('/lyrics/10', async (req, res) => {
     res.send(JSONTrackAndLyric)
 });
 
-app.listen(PORT, () => console.log('Server running on port 5002'));
+app.listen(PORT, () => console.log('Server running on port 5000'));
